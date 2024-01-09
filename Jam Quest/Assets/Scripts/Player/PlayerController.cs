@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayers;
     [SerializeField] Vector2 boxSizeGround;
     float boxAngle = 0f;
+    bool isCrouching;
 
     [Header("Ceiling Check")]
     [SerializeField] Transform head;
@@ -81,6 +82,8 @@ public class PlayerController : MonoBehaviour
         {
             boxCollider.size = new Vector2(boxCollider.size.x, colliderSizeCrouched);
             boxCollider.offset = new Vector2(boxCollider.offset.x, colliderOffsetCrouched);
+
+            isCrouching = true;
         }
         else if (!Bloqued.IsBloqued())
         {
@@ -90,6 +93,8 @@ public class PlayerController : MonoBehaviour
             {
                 boxCollider.offset = new Vector2(boxCollider.offset.x, colliderOffsetStanding);
             }
+
+            isCrouching = false;
         }
     }
 
@@ -157,12 +162,25 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    private void OnDrawGizmosSelected()
+    /*private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(feet.position, boxSizeGround);
         Gizmos.DrawWireCube(head.position, boxSizeCeiling);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((Vector2)transform.position + boxCollider.offset, boxCollider.size);
+    }*/
+
+    public float GetMovementDirection()
+    {
+        return moveBy;
+    }
+    public bool GetCrouchStatus()
+    {
+        return isCrouching;
+    }
+    public void SetNewSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 }
