@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float speed = 5f;
+    [SerializeField] float crouchSpeed = 2.5f;
     float moveBy;
+
+    bool canMove = true;
+    bool flipController = false;
 
     [Header("Jump")]
     [SerializeField] float jumpForce = 5f;
@@ -71,14 +75,31 @@ public class PlayerController : MonoBehaviour
     #region Move
     private void MoveInput()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        moveBy = x * speed;
+        if (canMove)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+
+            if (isCrouching && Grounded.IsGrounded())
+            {
+                moveBy = flipController ? -x * crouchSpeed : x * crouchSpeed;
+            }
+            else
+            {
+                moveBy = flipController ? -x * speed : x * speed;
+            }
+
+            //moveBy = x * speed;
+        }
+        else
+        {
+            moveBy = 0;
+        }
     }
     #endregion
 
     private void CrouchInput()
     {
-        if (Input.GetKey(crouchKey))
+        if (Input.GetKey(crouchKey) && canMove)
         {
             boxCollider.size = new Vector2(boxCollider.size.x, colliderSizeCrouched);
             boxCollider.offset = new Vector2(boxCollider.offset.x, colliderOffsetCrouched);
@@ -101,26 +122,29 @@ public class PlayerController : MonoBehaviour
     #region Jump
     private void JumpInput()
     {
-        if (Input.GetKeyDown(jumpKey))
+        if (canMove)
         {
-            if (Grounded.IsGrounded() || !jumpBufferExpired)
+            if (Input.GetKeyDown(jumpKey))
             {
-                Jump();
-            }
-            else if (!Grounded.IsGrounded())
-            {
-                if (!alreadyJumped && coyoteTimeCount > 0)
+                if (Grounded.IsGrounded() || !jumpBufferExpired)
                 {
                     Jump();
                 }
-                else
+                else if (!Grounded.IsGrounded())
                 {
-                    jumpBufferCount = jumpBufferLength;
+                    if (!alreadyJumped && coyoteTimeCount > 0)
+                    {
+                        Jump();
+                    }
+                    else
+                    {
+                        jumpBufferCount = jumpBufferLength;
+                    }
                 }
             }
-        }
 
-        JumpLogic();
+            JumpLogic();
+        }
     }
     private void JumpLogic()
     {
@@ -182,5 +206,14 @@ public class PlayerController : MonoBehaviour
     public void SetNewSpeed(float newSpeed)
     {
         speed = newSpeed;
+        crouchSpeed = speed / 2;
+    }
+    public void SetFlipController(bool flip)
+    {
+        flipController = flip;
+    }
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
     }
 }

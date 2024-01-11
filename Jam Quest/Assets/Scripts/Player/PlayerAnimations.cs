@@ -30,22 +30,37 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Update()
     {
-        if (Grounded.IsGrounded() && !playerController.GetCrouchStatus())
+        if (!playerController.GetCrouchStatus())
         {
-            if (playerController.GetMovementDirection() > 0)
+            if (Grounded.IsGrounded())
             {
-                spriteRenderer.flipX = flipDirection ? false : true;
-                anim.Play(PLAYER_RUN);
-            }
-            else if (playerController.GetMovementDirection() < 0)
-            {
-                spriteRenderer.flipX = flipDirection ? true : false;
-                anim.Play(PLAYER_RUN);
+                if (playerController.GetMovementDirection() > 0)
+                {
+                    spriteRenderer.flipX = flipDirection ? false : true;
+                    anim.Play(PLAYER_RUN);
+                }
+                else if (playerController.GetMovementDirection() < 0)
+                {
+                    spriteRenderer.flipX = flipDirection ? true : false;
+                    anim.Play(PLAYER_RUN);
+                }
+                else
+                {
+                    anim.Play(PLAYER_IDLE);
+                }
             }
             else
             {
-                anim.Play(PLAYER_IDLE);
+                if (playerController.GetMovementDirection() > 0)
+                {
+                    spriteRenderer.flipX = flipDirection ? false : true;
+                }
+                else if (playerController.GetMovementDirection() < 0)
+                {
+                    spriteRenderer.flipX = flipDirection ? true : false;
+                }
             }
+            
         }
         else if (Grounded.IsGrounded() && playerController.GetCrouchStatus())
         {

@@ -41,6 +41,7 @@ public class Death : MonoBehaviour
     {
         transform.position = respawnPoint;
         ReduceLight.SetReduce(false);
+        GetComponent<Damage>().OnDamage();
         OnPlayerDeath?.Invoke();
     }
 

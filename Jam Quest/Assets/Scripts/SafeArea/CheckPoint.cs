@@ -7,7 +7,7 @@ public class CheckPoint : MonoBehaviour
 {
     [SerializeField] Transform spawnTransform;
     [SerializeField] private KeyCode interactionKey;
-    bool canInteract = false;
+    [HideInInspector] public bool canInteract = false;
 
     [HideInInspector] public Vector3 respawnPoint;
 
@@ -15,8 +15,8 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] float spawnXPos;
     public bool isActivated = false;
 
-    [SerializeField] GameObject downGradeCardsPrefab;
-    [SerializeField] GameObject downGradeCardsSpawnPoint;
+    GameObject downGradeCardsSpawnPoint;
+    [SerializeField] GameObject[] downGradeCardsPrefab;
     [SerializeField] UnityEvent onDownGrade;
 
     private void Awake()
@@ -24,14 +24,17 @@ public class CheckPoint : MonoBehaviour
         spawnTransform.localPosition = spawnFacingRight ? new Vector3(spawnXPos, spawnTransform.localPosition.y, spawnTransform.localPosition.z) : new Vector3(-spawnXPos, spawnTransform.localPosition.y, spawnTransform.localPosition.z);
 
         respawnPoint = spawnTransform.position;
+
+        downGradeCardsSpawnPoint = GameObject.FindGameObjectWithTag("InGame").transform.GetChild(0).gameObject;
     }
     private void Update()
     {
-        if (canInteract && Input.GetKeyDown(interactionKey))
+        if (canInteract && Input.GetKeyDown(interactionKey) && !downGradeCardsSpawnPoint.activeInHierarchy)
         {
             if (!isActivated)
             {
                 SpawnDownGradeCards();
+                PauseGame.Pause();
             }
         }
     }
@@ -50,8 +53,14 @@ public class CheckPoint : MonoBehaviour
     }
     private void SpawnDownGradeCards()
     {
-        Instantiate(downGradeCardsPrefab, downGradeCardsSpawnPoint.transform);
         onDownGrade?.Invoke();
+
+        for (int i = 0; i < downGradeCardsPrefab.Length; i++)
+        {
+            Instantiate(downGradeCardsPrefab[i], downGradeCardsSpawnPoint.transform);
+        }
+
+        downGradeCardsSpawnPoint.SetActive(true);
     }
 
     #region Can Interact

@@ -96,4 +96,26 @@ public class ReduceLight : MonoBehaviour
     {
         return currentBigLightRadius;
     }
+    public void SetReduceTime(float value)
+    {
+        reduceTime = value;
+    }
+    public void SetSmallLightRadius(float value)
+    {
+        smallLightRadius = value;
+        smallLight.pointLightOuterRadius = value;
+        smallLight.pointLightInnerRadius = value;
+    }
+    public void SetMediumLightRadius(float value)
+    {
+        mediumLightRadius = value;
+        mediumLight.pointLightOuterRadius = value;
+        mediumLight.pointLightInnerRadius = value;
+    }
+    public void SetBigLightRadius(float value)
+    {
+        bigLightRadius = value;
+        bigLight.pointLightOuterRadius = value;
+        bigLight.pointLightInnerRadius = value;
+    }
 }

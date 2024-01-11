@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (menuName = "DowngradeCards/Speed Downgrade")]
-public class SpeedDowngrade : DownGradeCards
+public class SpeedDowngrade : DownGradeCard
 {
     [Header ("Custom Card Variables")]
     public float newSpeed;
