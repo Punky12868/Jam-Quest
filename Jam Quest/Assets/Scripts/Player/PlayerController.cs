@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    /*private void OnDrawGizmosSelected()
+    /*private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(feet.position, boxSizeGround);
         Gizmos.DrawWireCube(head.position, boxSizeCeiling);
@@ -208,9 +208,17 @@ public class PlayerController : MonoBehaviour
         speed = newSpeed;
         crouchSpeed = speed / 2;
     }
+    public float GetSpeed()
+    {
+        return speed;
+    }
     public void SetFlipController(bool flip)
     {
         flipController = flip;
+    }
+    public bool GetFlipController()
+    {
+        return flipController;
     }
     public void SetCanMove(bool value)
     {

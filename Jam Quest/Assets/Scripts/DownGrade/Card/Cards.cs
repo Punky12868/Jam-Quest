@@ -51,5 +51,6 @@ public class Cards : MonoBehaviour
         PauseGame.Resume();
 
         FindObjectOfType<Damage>().OnDamage();
+        FindObjectOfType<RestartController>().SaveProgress();
     }
 }

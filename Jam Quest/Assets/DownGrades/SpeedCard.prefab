@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6221093643116341842}
   - component: {fileID: 4667340514964878192}
   - component: {fileID: 4068184939901965440}
+  - component: {fileID: 4770425527410245878}
   m_Layer: 5
   m_Name: CardDescription
   m_TagString: Untagged
@@ -135,6 +136,36 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4770425527410245878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714177485165859346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 1
+  _text: Back
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 792ce21910cd1ec45b03c589ec2e9aae, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: ded9d336968a29f46805a1283d6a4271, type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: 6fd3fc202f1978348b2c11c8f882ea56, type: 2}
+  defaultAppearancesTags: []
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
 --- !u!1 &5104894216060149523
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +331,7 @@ GameObject:
   - component: {fileID: 5511643300261593448}
   - component: {fileID: 4730988196130502669}
   - component: {fileID: 8387055400672185302}
+  - component: {fileID: 7061932382791436135}
   m_Layer: 5
   m_Name: CardName
   m_TagString: Untagged
@@ -424,6 +456,36 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7061932382791436135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609119031116785723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 1
+  _text: Back
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: 792ce21910cd1ec45b03c589ec2e9aae, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: ded9d336968a29f46805a1283d6a4271, type: 2}
+  useDefaultStyleSheet: 1
+  styleSheet: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: 6fd3fc202f1978348b2c11c8f882ea56, type: 2}
+  defaultAppearancesTags: []
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
 --- !u!1 &6942524947518159401
 GameObject:
   m_ObjectHideFlags: 0

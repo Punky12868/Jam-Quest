@@ -21,23 +21,14 @@ public class ReduceLight : MonoBehaviour
 
     private static bool reduce;
 
-    private static float currentSmallLightRadius;
-    private static float currentMediumLightRadius;
-    private static float currentBigLightRadius;
-
     private void Awake()
     {
         smallLightRadius = smallLight.pointLightOuterRadius;
         mediumLightRadius = mediumLight.pointLightOuterRadius;
         bigLightRadius = bigLight.pointLightOuterRadius;
     }
-
     private void Update()
     {
-        currentSmallLightRadius = smallLight.pointLightOuterRadius;
-        currentMediumLightRadius = mediumLight.pointLightOuterRadius;
-        currentBigLightRadius = bigLight.pointLightOuterRadius;
-
         if (reduce)
         {
             if (smallLight.pointLightOuterRadius > 0)
@@ -84,21 +75,26 @@ public class ReduceLight : MonoBehaviour
     {
         reduce = value;
     }
-    public static float GetSmallLightRadius()
+
+    public float GetSmallLightRadius()
     {
-        return currentSmallLightRadius;
+        return smallLightRadius;
     }
-    public static float GetMediumLightRadius()
+    public float GetMediumLightRadius()
     {
-        return currentMediumLightRadius;
+        return mediumLightRadius;
     }
-    public static float GetBigLightRadius()
+    public float GetBigLightRadius()
     {
-        return currentBigLightRadius;
+        return bigLightRadius;
     }
     public void SetReduceTime(float value)
     {
         reduceTime = value;
+    }
+    public float GetReduceTime()
+    {
+        return reduceTime;
     }
     public void SetSmallLightRadius(float value)
     {

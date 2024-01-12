@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad479e10e74d504488bd7fc2ddb2221, type: 3}
   m_Name: Blur
   m_EditorClassIdentifier: 
-  cardName: YOU NEED GLASSES
-  cardDescription: Suddenly, you feel a pain in your head, your vision blurs
+  cardName: <shake a=0.2 d=0.6>YOU NEED GLASSES
+  cardDescription: <wiggle a=0.1 f=0.35>Suddenly, you feel a pain in your head, your
+    vision blurs
   cardSprite: {fileID: 21300000, guid: c2b3615ab8ab2e040afdaf0cb9836e56, type: 3}
-  blurAmount: 0

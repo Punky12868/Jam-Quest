@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9d79355d9b9a04aa1e690a92b510bd, type: 3}
   m_Name: Flip
   m_EditorClassIdentifier: 
-  cardName: CONFUSION
-  cardDescription: You seem disoriented, your controls are too
+  cardName: <shake a=0.2 d=0.6>CONFUSION
+  cardDescription: <wiggle a=0.1 f=0.35>You seem disoriented, your controls are too
   cardSprite: {fileID: 21300000, guid: bf5fcca8f7e096b40911494685785777, type: 3}
-  flipControls: 1

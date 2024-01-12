@@ -20,20 +20,47 @@ public class EnemyBehaviour : MonoBehaviour
     bool isFlipped;
 
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask IgnoreLayer;
+
     [SerializeField] Vector2 raycastOriginOffset;
     [SerializeField] Vector2[] raycastDirections;
+
+    private int directionLevel = 0;
+
+    private float xPositiveDirValue;
+    private float xNegativeDirValue;
+
+    private float xPositiveMultiply;
+    private float xNegativeMultiply;
+
     private void Awake()
     {
         waypoints = waypointsHolder.GetComponent<Waypoints>().GetWaypoints();
         localScaleX = transform.localScale.x;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+
+        if (raycastDirections[raycastDirections.Length - 1].x > -0.001)
+        {
+            xPositiveDirValue = raycastDirections[raycastDirections.Length - 1].x;
+            xNegativeDirValue = -raycastDirections[raycastDirections.Length - 1].x;
+        }
+        else if (raycastDirections[raycastDirections.Length - 1].x < 0.001)
+        {
+            xPositiveDirValue = -raycastDirections[raycastDirections.Length - 1].x;
+            xNegativeDirValue = raycastDirections[raycastDirections.Length - 1].x;
+        }
+
+        xPositiveMultiply = xPositiveDirValue * 2;
+        xNegativeMultiply = xNegativeDirValue * 2;
+
+        EnemyLevelLogic();
     }
 
     private void Update()
     {
         Movement();
         Vision();
-
         //enemyVision
     }
     private void Movement()
@@ -89,7 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         for (int i = 0; i < raycastDirections.Length; i++) // Linecast from point a to point b, if the raycast hits the player, set playerInSight to true
         {
-            RaycastHit2D hit = Physics2D.Linecast((Vector2)transform.position + raycastOriginOffset, (Vector2)transform.position + raycastOriginOffset + raycastDirections[i]);
+            RaycastHit2D hit = Physics2D.Linecast((Vector2)transform.position + raycastOriginOffset, (Vector2)transform.position + raycastOriginOffset + raycastDirections[i], ~IgnoreLayer);
 
             if (hit.collider != null)
             {
@@ -120,22 +147,72 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public Vector2[] GetDirections()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        return raycastDirections;
-    }
-
-    public void SetDirections(int value)
-    {
-        for (int i = 0; i < raycastDirections.Length; i++)
+        if (collision.CompareTag("Player"))
         {
-            raycastDirections[i] = new Vector2(raycastDirections[i].x * value, raycastDirections[i].y * value);
+            FindObjectOfType<Damage>().OnDeath();
+            playerInSight = false;
         }
     }
 
-    public void SetOuterLightDistance(int value)
+    public void SetDirLevel(int level)
+    {
+        directionLevel = level;
+
+        EnemyLevelLogic();
+    }
+    public int GetDirLevel()
+    {
+        return directionLevel;
+    }
+
+    public void SetWaypoint(int value)
+    {
+        waypointIndex = value;
+    }
+
+    public void SetMultiplyOuterLightDistance(int value)
     {
         light2D.pointLightOuterRadius *= value;
+    }
+    public void SetDivideOuterLightDistance(int value)
+    {
+        light2D.pointLightOuterRadius /= value;
+    }
+    public float GetLightValue()
+    {
+        return light2D.pointLightOuterRadius;
+    }
+    public void SetLightValue(float value)
+    {
+        light2D.pointLightOuterRadius = value;
+    }
+
+    public void EnemyLevelLogic()
+    {
+        if (directionLevel == 1)
+        {
+            if (raycastDirections[raycastDirections.Length - 1].x * 2 == xPositiveMultiply && raycastDirections[raycastDirections.Length - 1].x > -0.01 ||
+                raycastDirections[raycastDirections.Length - 1].x * 2 == xNegativeMultiply && raycastDirections[raycastDirections.Length - 1].x < 0.01)
+            {
+                for (int i = 0; i < raycastDirections.Length; i++)
+                {
+                    raycastDirections[i] *= 2;
+                }
+            }
+        }
+        else if (directionLevel == 0)
+        {
+            if (xPositiveDirValue != raycastDirections[raycastDirections.Length - 1].x && raycastDirections[raycastDirections.Length - 1].x > -0.01 ||
+                xNegativeDirValue != raycastDirections[raycastDirections.Length - 1].x && raycastDirections[raycastDirections.Length - 1].x < 0.01)
+            {
+                for (int i = 0; i < raycastDirections.Length; i++)
+                {
+                    raycastDirections[i] /= 2;
+                }
+            }
+        }
     }
 
     private void OnDrawGizmos()
@@ -148,9 +225,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             Gizmos.color = Color.green;
 
-            Gizmos.DrawWireSphere((Vector2)transform.position + raycastOriginOffset + raycastDirections[i], 0.3f);
+            Gizmos.DrawWireSphere((Vector2)transform.position + raycastOriginOffset + raycastDirections[i], 0.2f);
         }
-
-        Gizmos.color = Color.blue;
     }
 }

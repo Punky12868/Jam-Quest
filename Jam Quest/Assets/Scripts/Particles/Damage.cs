@@ -36,6 +36,19 @@ public class Damage : MonoBehaviour
         StartCoroutine(OffDamage());
     }
 
+    public void OnDeath()
+    {
+        CameraShake.Instance.ShakeCamera(10f, 0.4f);
+
+        _emission.enabled = true;
+        _motionBlur.intensity.value = 0.5f;
+
+        HurtPanel.alpha = 1f;
+
+        FindObjectOfType<Death>().OnDeath();
+        StartCoroutine(OffDamage());
+    }
+
     IEnumerator OffDamage()
     {
         yield return new WaitForSeconds(0.5f);

@@ -22,6 +22,17 @@ public class PauseGame : MonoBehaviour
                 PauseButton();
             }
         }
+
+        if (isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public static void Pause()

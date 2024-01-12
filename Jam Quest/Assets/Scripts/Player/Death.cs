@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Events;
 using UnityEngine;
 
 public class Death : MonoBehaviour
 {
     [SerializeField] float reduceLightDistance;
-    [SerializeField] UnityEvent OnPlayerDeath;
     Vector2 respawnPoint;
 
     [SerializeField] private KeyCode kys;
@@ -37,19 +35,28 @@ public class Death : MonoBehaviour
         }
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
-        transform.position = respawnPoint;
+        //transform.position = respawnPoint;
         ReduceLight.SetReduce(false);
         GetComponent<Damage>().OnDamage();
-        OnPlayerDeath?.Invoke();
+        FindObjectOfType<RestartController>().LoadProgress();
+
+        EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
+        foreach (EnemyBehaviour enemy in enemies)
+        {
+            enemy.playerInSight = false;
+        }
     }
 
     public void SetRespawnPoint(Vector2 point)
     {
         respawnPoint = point;
     }
-
+    public Vector2 GetSpawnPoint()
+    {
+        return respawnPoint;
+    }
     public void ResetSpawnPoint()
     {
         respawnPoint = transform.position;

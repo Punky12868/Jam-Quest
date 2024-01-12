@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66afabc13a281494d9f2c57831330d90, type: 3}
   m_Name: MinimalLight
   m_EditorClassIdentifier: 
-  cardName: BLINDFOLDED
-  cardDescription: If you don't see them, neither do they
+  cardName: <shake a=0.2 d=0.6>BLINDFOLDED
+  cardDescription: <wiggle a=0.1 f=0.35>If you don't see them, neither do they
   cardSprite: {fileID: 21300000, guid: c2b3615ab8ab2e040afdaf0cb9836e56, type: 3}
   newSmallLightRadius: 0
   newMediumLightRadius: 0

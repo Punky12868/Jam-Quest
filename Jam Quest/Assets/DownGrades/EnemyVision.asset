@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b609164e2595cc242ade0929f90176e7, type: 3}
   m_Name: EnemyVision
   m_EditorClassIdentifier: 
-  cardName: THEY SEE YOU
-  cardDescription: shh, they're looking for you, don't approach the lights
+  cardName: <shake a=0.2 d=0.6>THEY SEE YOU
+  cardDescription: <wiggle a=0.1 f=0.35>shh, they're looking for you, don't approach
+    the lights
   cardSprite: {fileID: 21300000, guid: 1729dadd2f181cd4aa86b7f7b255d4e6, type: 3}
-  enemyVisionIncrease: 2
+  enemyVisionIncrease: 1
+  enemyVisionCone: 2

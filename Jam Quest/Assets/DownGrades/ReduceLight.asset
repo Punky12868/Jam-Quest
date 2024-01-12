@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec49f4d7544554438f8e1a7453e9c20, type: 3}
   m_Name: ReduceLight
   m_EditorClassIdentifier: 
-  cardName: Bad Oil
-  cardDescription: Darkness is your friend; you won't wait long to be with it
+  cardName: <shake a=0.2 d=0.6>Bad Oil
+  cardDescription: <wiggle a=0.1 f=0.35>Darkness is your friend; you won't wait long
+    to be with it
   cardSprite: {fileID: 21300000, guid: 70e9dc7cdafd86944949fa81ba47540e, type: 3}
   newReduceSpeed: 1

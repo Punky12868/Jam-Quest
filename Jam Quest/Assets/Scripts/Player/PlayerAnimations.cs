@@ -30,63 +30,66 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Update()
     {
-        if (!playerController.GetCrouchStatus())
+        if (!PauseGame.isPaused)
         {
-            if (Grounded.IsGrounded())
+            if (!playerController.GetCrouchStatus())
             {
-                if (playerController.GetMovementDirection() > 0)
+                if (Grounded.IsGrounded())
                 {
-                    spriteRenderer.flipX = flipDirection ? false : true;
-                    anim.Play(PLAYER_RUN);
-                }
-                else if (playerController.GetMovementDirection() < 0)
-                {
-                    spriteRenderer.flipX = flipDirection ? true : false;
-                    anim.Play(PLAYER_RUN);
+                    if (playerController.GetMovementDirection() > 0)
+                    {
+                        spriteRenderer.flipX = flipDirection ? false : true;
+                        anim.Play(PLAYER_RUN);
+                    }
+                    else if (playerController.GetMovementDirection() < 0)
+                    {
+                        spriteRenderer.flipX = flipDirection ? true : false;
+                        anim.Play(PLAYER_RUN);
+                    }
+                    else
+                    {
+                        anim.Play(PLAYER_IDLE);
+                    }
                 }
                 else
                 {
-                    anim.Play(PLAYER_IDLE);
+                    if (playerController.GetMovementDirection() > 0)
+                    {
+                        spriteRenderer.flipX = flipDirection ? false : true;
+                    }
+                    else if (playerController.GetMovementDirection() < 0)
+                    {
+                        spriteRenderer.flipX = flipDirection ? true : false;
+                    }
                 }
+
             }
-            else
+            else if (Grounded.IsGrounded() && playerController.GetCrouchStatus())
             {
                 if (playerController.GetMovementDirection() > 0)
                 {
                     spriteRenderer.flipX = flipDirection ? false : true;
+                    anim.Play(PLAYER_CROUCHMOVE);
                 }
                 else if (playerController.GetMovementDirection() < 0)
                 {
                     spriteRenderer.flipX = flipDirection ? true : false;
+                    anim.Play(PLAYER_CROUCHMOVE);
+                }
+                else
+                {
+                    anim.Play(PLAYER_CROUCH);
                 }
             }
-            
-        }
-        else if (Grounded.IsGrounded() && playerController.GetCrouchStatus())
-        {
-            if (playerController.GetMovementDirection() > 0)
-            {
-                spriteRenderer.flipX = flipDirection ? false : true;
-                anim.Play(PLAYER_CROUCHMOVE);
-            }
-            else if (playerController.GetMovementDirection() < 0)
-            {
-                spriteRenderer.flipX = flipDirection ? true : false;
-                anim.Play(PLAYER_CROUCHMOVE);
-            }
-            else
-            {
-                anim.Play(PLAYER_CROUCH);
-            }
-        }
 
-        if (!Grounded.IsGrounded() && rb.velocity.y > 0)
-        {
-            anim.Play(PLAYER_JUMP);
-        }
-        else if (!Grounded.IsGrounded() && rb.velocity.y < 0)
-        {
-            anim.Play(PLAYER_FALL);
+            if (!Grounded.IsGrounded() && rb.velocity.y > 0)
+            {
+                anim.Play(PLAYER_JUMP);
+            }
+            else if (!Grounded.IsGrounded() && rb.velocity.y < 0)
+            {
+                anim.Play(PLAYER_FALL);
+            }
         }
     }
 }
