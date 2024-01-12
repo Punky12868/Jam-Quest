@@ -7,7 +7,7 @@ public class CheckPoint : MonoBehaviour
 {
     [SerializeField] Transform spawnTransform;
     [SerializeField] private KeyCode interactionKey;
-    [HideInInspector] public bool canInteract = false;
+    public bool canInteract = false;
 
     [HideInInspector] public Vector3 respawnPoint;
 
@@ -19,6 +19,8 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] GameObject[] downGradeCardsPrefab;
     [SerializeField] UnityEvent onDownGrade;
 
+    [SerializeField] int checkPointIndex;
+
     private void Awake()
     {
         spawnTransform.localPosition = spawnFacingRight ? new Vector3(spawnXPos, spawnTransform.localPosition.y, spawnTransform.localPosition.z) : new Vector3(-spawnXPos, spawnTransform.localPosition.y, spawnTransform.localPosition.z);
@@ -26,6 +28,7 @@ public class CheckPoint : MonoBehaviour
         respawnPoint = spawnTransform.position;
 
         downGradeCardsSpawnPoint = GameObject.FindGameObjectWithTag("InGame").transform.GetChild(0).gameObject;
+        downGradeCardsSpawnPoint = downGradeCardsSpawnPoint.transform.GetChild(0).gameObject;
     }
     private void Update()
     {
@@ -35,6 +38,29 @@ public class CheckPoint : MonoBehaviour
             {
                 SpawnDownGradeCards();
                 PauseGame.Pause();
+            }
+        }
+
+        if (canInteract && !isActivated)
+        {
+            if (checkPointIndex == 0)
+            {
+                InteractFeedback.Instance.ShowInteractCheckpointOne(true);
+            }
+            else
+            {
+                InteractFeedback.Instance.ShowInteractCheckpointTwo(true);
+            }
+        }
+        else
+        {
+            if (checkPointIndex == 0)
+            {
+                InteractFeedback.Instance.ShowInteractCheckpointOne(false);
+            }
+            else
+            {
+                InteractFeedback.Instance.ShowInteractCheckpointTwo(false);
             }
         }
     }

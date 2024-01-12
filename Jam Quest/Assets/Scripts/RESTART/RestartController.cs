@@ -33,6 +33,9 @@ public class RestartController : MonoBehaviour
 
     float enemyLightValue;
 
+    bool hasKey;
+    bool doorOpen;
+
     private void Awake()
     {
         restartAllClass = new RestartAllClass();
@@ -44,7 +47,7 @@ public class RestartController : MonoBehaviour
 
             SaveProgress();
 
-            restartAllClass.GetStartingVariables(player, blurDowngrade, playerSpeed, blurDowngradeActive, flipController, smallLightRadius, mediumLightRadius, bigLightRadius, reduceTime, enemies, playerStartPos, enemiesStartPos, enemyLightValue, enemyLevel);
+            restartAllClass.GetStartingVariables(player, blurDowngrade, playerSpeed, blurDowngradeActive, flipController, smallLightRadius, mediumLightRadius, bigLightRadius, reduceTime, enemies, playerStartPos, enemiesStartPos, enemyLightValue, enemyLevel, hasKey, doorOpen);
         }
         else
         {
@@ -64,7 +67,7 @@ public class RestartController : MonoBehaviour
 
 
                 SaveProgress();
-                restartAllClass.GetStartingVariables(player, blurDowngrade, playerSpeed, blurDowngradeActive, flipController, smallLightRadius, mediumLightRadius, bigLightRadius, reduceTime, enemies, playerStartPos, enemiesStartPos, enemyLightValue, enemyLevel);
+                restartAllClass.GetStartingVariables(player, blurDowngrade, playerSpeed, blurDowngradeActive, flipController, smallLightRadius, mediumLightRadius, bigLightRadius, reduceTime, enemies, playerStartPos, enemiesStartPos, enemyLightValue, enemyLevel, hasKey, doorOpen);
 
                 waitFrame = false;
             }
@@ -80,6 +83,9 @@ public class RestartController : MonoBehaviour
         blurDowngradeActive = blurDowngrade.activeInHierarchy ? true : false;
 
         reduceTime = FindObjectOfType<ReduceLight>().GetReduceTime();
+
+        hasKey = FindObjectOfType<PlayerInventory>().hasKey;
+        doorOpen = FindObjectOfType<Door>().isOpen;
 
         //ENEMY
 
@@ -107,6 +113,9 @@ public class RestartController : MonoBehaviour
         player.GetComponent<PlayerController>().SetNewSpeed(playerSpeed);
         player.GetComponent<PlayerController>().SetFlipController(flipController);
         blurDowngrade.SetActive(blurDowngradeActive);
+
+        FindObjectOfType<PlayerInventory>().hasKey = hasKey;
+        FindObjectOfType<Door>().isOpen = doorOpen;
 
         //LIGHT
 
@@ -150,6 +159,9 @@ public class RestartController : MonoBehaviour
 
         FindObjectOfType<AllCheckPoints>().DeactivateAllCheckPoints();
 
+        hasKey = restartAllClass.ReturnHasKey();
+        doorOpen = restartAllClass.ReturnDoorOpen();
+
         LoadProgress();
     }
 }
@@ -175,7 +187,10 @@ public class RestartAllClass
     int enemyLevel;
     float enemyLightValue;
 
-    public void GetStartingVariables(GameObject player, GameObject blurDowngrade, float playerSpeed, bool blurDowngradeActive, bool flipController, float smallLightRadius, float mediumLightRadius, float bigLightRadius, float reduceTime, GameObject[] enemies, Vector3 playerStartPos, Vector3[] enemiesStartPos, float enemyLightValue, int enemyLevel)
+    bool hasKey;
+    bool doorOpen;
+
+    public void GetStartingVariables(GameObject player, GameObject blurDowngrade, float playerSpeed, bool blurDowngradeActive, bool flipController, float smallLightRadius, float mediumLightRadius, float bigLightRadius, float reduceTime, GameObject[] enemies, Vector3 playerStartPos, Vector3[] enemiesStartPos, float enemyLightValue, int enemyLevel, bool hasKey, bool doorOpen)
     {
         this.player = player;
         this.blurDowngrade = blurDowngrade;
@@ -191,6 +206,8 @@ public class RestartAllClass
         this.enemiesStartPos = enemiesStartPos;
         this.enemyLightValue = enemyLightValue;
         this.enemyLevel = enemyLevel;
+        this.hasKey = hasKey;
+        this.doorOpen = doorOpen;
     }
 
     #region Return Data
@@ -250,6 +267,14 @@ public class RestartAllClass
     public float ReturnEnemyLightValue()
     {
         return enemyLightValue;
+    }
+    public bool ReturnHasKey()
+    {
+        return hasKey;
+    }
+    public bool ReturnDoorOpen()
+    {
+        return doorOpen;
     }
 
     #endregion

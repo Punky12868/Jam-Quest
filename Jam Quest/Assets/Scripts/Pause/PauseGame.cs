@@ -6,6 +6,7 @@ public class PauseGame : MonoBehaviour
 {
     [SerializeField] KeyCode pauseKey = KeyCode.Escape;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject cardHolder;
 
     public static bool isPaused = false;
 
@@ -50,7 +51,28 @@ public class PauseGame : MonoBehaviour
     public void ResumeButton()
     {
         Resume();
-        pauseMenu.SetActive(false);
+
+        if (cardHolder.activeInHierarchy)
+        {
+            cardHolder.SetActive(false);
+
+            GameObject[] cards = new GameObject[cardHolder.transform.childCount];
+
+            for (int i = 0; i < cardHolder.transform.childCount; i++)
+            {
+                cards[i] = cardHolder.transform.GetChild(i).gameObject;
+            }
+            for (int i = 0; i < cards.Length; i++)
+            {
+                Destroy(cards[i]);
+            }
+
+            FindObjectOfType<PlayerController>().SetCanMove(true);
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+        }
     }
 
     public void PauseButton()

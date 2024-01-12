@@ -8,6 +8,8 @@ TagManager:
   - CardsHolder
   - InGame
   - Enemy
+  - AudioManager
+  - ConfigMenu
   layers:
   - Default
   - TransparentFX
