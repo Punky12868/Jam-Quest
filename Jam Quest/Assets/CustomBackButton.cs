@@ -13,12 +13,21 @@ public class CustomBackButton : MonoBehaviour
         if (cardsHolder.activeInHierarchy && !backButton.activeInHierarchy)
         {
             backButton.SetActive(true);
-            text.SetActive(false);
         }
-        else if (!cardsHolder.activeInHierarchy && backButton.activeInHierarchy)
+
+        if (!cardsHolder.activeInHierarchy && backButton.activeInHierarchy)
         {
             backButton.SetActive(false);
+        }
+
+        if (cardsHolder.activeInHierarchy && !text.activeInHierarchy)
+        {
             text.SetActive(true);
+        }
+
+        if (!cardsHolder.activeInHierarchy && text.activeInHierarchy)
+        {
+            text.SetActive(false);
         }
     }
 }

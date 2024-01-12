@@ -37,6 +37,7 @@ public class CheckPoint : MonoBehaviour
             if (!isActivated)
             {
                 SpawnDownGradeCards();
+                AudioManager.instance.PlaySFX(0);
                 PauseGame.Pause();
             }
         }
@@ -71,6 +72,7 @@ public class CheckPoint : MonoBehaviour
             isActivated = true;
             AllCheckPoints.currentCheckpoint = this;
             FindObjectOfType<AllCheckPoints>().DeactivateLastCheckPoint();
+            AudioManager.instance.PlaySFX(2);
         }
     }
     public void DeactivateCheckpoint()

@@ -41,6 +41,7 @@ public class Death : MonoBehaviour
         ReduceLight.SetReduce(false);
         GetComponent<Damage>().OnDamage();
         FindObjectOfType<RestartController>().LoadProgress();
+        AudioManager.instance.PlaySFX(2);
 
         EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
         foreach (EnemyBehaviour enemy in enemies)
